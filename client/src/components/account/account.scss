@@ -1,0 +1,102 @@
+.main-page {
+  margin-top: 30px;
+}
+
+.form-login {
+  display: flex;
+  align-items: center;
+}
+
+.form-input  {
+  width: 100%;
+  padding-right: 20px;
+}
+
+.form-buttons {
+  margin-left: auto;
+  padding: 0 15px;
+}
+
+.form-btn {
+  width: 118px;
+}
+
+.todos-list {
+  margin-top: 30px;
+  overflow-y: scroll;
+  max-height: 440px;
+}
+
+.todos-list::-webkit-scrollbar {
+  border-radius: 7px;
+  width: 5px;
+  background-color: #ffffff;
+}
+
+.todos-list::-webkit-scrollbar-thumb {
+  border-radius: 7px;
+  background-color: #2196f3;
+}
+
+.todos-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 15px 10px;
+  border-left: 5px solid #2196f3;
+}
+
+.todos-item.important {
+  border-left: 5px solid #26a69a;
+  background-color: rgb(32, 148, 243);
+}
+
+.todos-item.important .todos-number{
+  color: white;
+}
+
+.todos-item.important .todos-description {
+  color: white;
+}
+
+.todos-item:hover {
+  transition: all 0.3s ease;
+  border-left: 5px solid #26a69a;
+}
+
+.todos-label {
+  width: 500px;
+  font-size: 18px;
+  z-index: 1;
+}
+
+.todos-description {
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  margin-left: 10px !important;
+}
+
+.todos-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+  z-index: 2;
+}
+
+.todos-icons {
+  line-height: 32.7px !important;
+}
+
+.todos-btn:hover {
+  transform: scale(1.05);
+  transition: all 0.3s;
+}
+
+.loading-account {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  height: 100%;
+}
