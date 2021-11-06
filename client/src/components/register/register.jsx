@@ -1,21 +1,21 @@
-import React, { useContext } from 'react'
-import { AuthContext } from '../../context/authContext'
-import { Link } from 'react-router-dom'
-import { useForm } from "../../hooks/form.hook"
-import { toast } from 'react-toastify'
+import React, {useContext} from 'react'
+import {AuthContext} from '../../context/authContext'
+import {Link} from 'react-router-dom'
+import {useForm} from "../../hooks/form.hook"
+import {toast} from 'react-toastify'
 import axios from 'axios'
 import "./register.scss"
 
 const Register = () => {
-  const { loading, setLoading, form, clearForm, handlerChange } = useForm()
-  const { login } = useContext(AuthContext)
+  const {loading, setLoading, form, clearForm, handlerChange} = useForm()
+  const {login} = useContext(AuthContext)
 
   const registerHandler = async (event) => {
     event.preventDefault()
     try {
       toast.info("Подождите...")
       setLoading(true)
-      const response = await axios.post(`/api/auth/register`, { ...form })
+      const response = await axios.post(`/api/auth/register`, {...form})
       clearForm();
       setLoading(false)
       toast.success(response.data.message)
@@ -42,8 +42,8 @@ const Register = () => {
                     type="text"
                     name="name"
                     className="validate"
-                    onChange={ handlerChange }
-                    value={ form.name }
+                    onChange={handlerChange}
+                    value={form.name}
                   />
                   <label htmlFor="name-signup">Name</label>
                 </div>
@@ -55,8 +55,8 @@ const Register = () => {
                     type="email"
                     name="email"
                     className="validate"
-                    onChange={ handlerChange }
-                    value={ form.email }
+                    onChange={handlerChange}
+                    value={form.email}
                   />
                   <label htmlFor="email-signup">Email</label>
                 </div>
@@ -69,8 +69,8 @@ const Register = () => {
                     name="password"
                     className="validate"
                     autoComplete="off"
-                    onChange={ handlerChange }
-                    value={ form.password }
+                    onChange={handlerChange}
+                    value={form.password}
                   />
                   <label htmlFor="password-signup">Пароль</label>
                 </div>
@@ -80,8 +80,8 @@ const Register = () => {
                   <button
                     type="submit"
                     className="waves-effect waves-light btn blue btn-auth"
-                    disabled={ loading }
-                    onClick={ registerHandler }
+                    disabled={loading}
+                    onClick={registerHandler}
                   >Создать аккаунт</button>
                   <Link to="/login" className="btn-outline btn-ml-2">Войти в аккаунт</Link>
                 </div>

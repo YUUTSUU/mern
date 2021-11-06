@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/authContext';
+import React, {useContext} from 'react'
+import {Link} from 'react-router-dom'
+import {AuthContext} from '../../context/authContext'
 import axios from 'axios'
-import "./navbar.scss";
+import "./navbar.scss"
 
 const Navbar = () => {
-  const { isAuthentication, name, logout } = useContext(AuthContext);
+  const {isAuthentication, name, logout} = useContext(AuthContext)
 
   const logoutHandler = async () => {
     try {
@@ -13,9 +13,7 @@ const Navbar = () => {
       await axios.post(`/api/auth/logout`)
     } catch (error) {
       console.log(error.message)
-      if (error && error.response.data.message) {
-        console.log(error.response.data.message)
-      }
+      if (error && error.response.data.message) console.log(error.response.data.message)
     }
   }
 
@@ -27,9 +25,9 @@ const Navbar = () => {
           {
             isAuthentication ?
               (<ul id="nav-mobile" className="right hide-on-med-and-down">
-                <li className="mr">Добро пожаловать { name } </li>
+                <li className="mr">Добро пожаловать {name} </li>
                 <li>
-                  <Link to="/login" onClick={ logoutHandler }>Выйти</Link>
+                  <Link to="/login" onClick={logoutHandler}>Выйти</Link>
                 </li>
               </ul>)
               :
@@ -45,4 +43,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar;
+export default Navbar

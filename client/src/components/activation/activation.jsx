@@ -1,5 +1,5 @@
-import React from 'react';
-import "./activation.scss";
+import React from 'react'
+import "./activation.scss"
 
 const Activation = () => {
   return (
@@ -10,7 +10,7 @@ const Activation = () => {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default Activation;
+export default Activation

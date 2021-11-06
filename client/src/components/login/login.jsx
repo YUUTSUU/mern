@@ -1,26 +1,30 @@
-import React, { useCallback, useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { AuthContext } from '../../context/authContext'
-import { useForm } from "../../hooks/form.hook"
+import React, {useCallback, useContext, useEffect} from 'react'
+import {Link} from 'react-router-dom'
+import {AuthContext} from '../../context/authContext'
+import {useForm} from "../../hooks/form.hook"
 import GoogleLogin from 'react-google-login'
-import { toast } from 'react-toastify'
+import {toast} from 'react-toastify'
 import axios from 'axios'
 import "./login.scss"
 
 const Login = () => {
-  const { loading, setLoading, form, clearForm, handlerChange } = useForm();
-  const { login } = useContext(AuthContext);
+  const {loading, setLoading, form, clearForm, handlerChange} = useForm();
+  const {login} = useContext(AuthContext);
 
   const loginHandler = async (event) => {
     event.preventDefault()
     try {
+      console.log(form)
+
       toast.info("Подождите...", {autoClose: 7000})
       setLoading(true)
-      const response = await axios.post(`/api/auth/login`, { ...form })
+      const response = await axios.post(`/api/auth/login`, {...form})
       clearForm()
       setLoading(false)
       toast.dismiss()
-      setTimeout(() => toast.success("Вход успешно выполнен", login(response.data.accessToken)), 0)
+      if (typeof response.data.accessToken === "string") {
+        setTimeout(() => toast.success("Вход успешно выполнен", login(response.data.accessToken)), 0)
+      }
     } catch (error) {
       setLoading(false)
       console.log(error.message)
@@ -32,7 +36,7 @@ const Login = () => {
   const handleResponse = async (data) => {
     try {
       toast.info("Подождите...")
-      const response = await axios.post(`/api/auth/google`, { credential: data.tokenId })
+      const response = await axios.post(`/api/auth/google`, {credential: data.tokenId})
       toast.dismiss()
       toast.success("Вход успешно выполнен", login(response.data.accessToken))
     } catch (error) {
@@ -44,8 +48,8 @@ const Login = () => {
 
   const handleCredentialResponse = useCallback(async (data) => {
     try {
-      toast.info("Подождите...", { autoClose: 7000 })
-      const response = await axios.post(`/api/auth/google`, { credential: data.credential })
+      toast.info("Подождите...", {autoClose: 7000})
+      const response = await axios.post(`/api/auth/google`, {credential: data.credential})
       toast.dismiss()
       toast.success("Вход успешно выполнен", login(response.data.accessToken))
     } catch (error) {
@@ -53,7 +57,7 @@ const Login = () => {
       toast.dismiss()
       if (error && error.response.data.message) toast.error(error.response.data.message)
     }
-  }, [ login ])
+  }, [login])
 
   const googleSignIn = useCallback(async () => {
     try {
@@ -64,14 +68,14 @@ const Login = () => {
         allowed_parent_origin: process.env.REACT_APP_API_CLIENT
       })
       await google.accounts.id.renderButton(document.getElementById("buttonDiv"),
-        { theme: "filled_blue", size: "large", logo_alignment: "left", shape: "rectangular", width: 225, local: "ru-RU" }
+        {theme: "filled_blue", size: "large", logo_alignment: "left", shape: "rectangular", width: 225, local: "ru-RU"}
       )
-    } catch (err) { console.log(err.message) }
-  }, [ handleCredentialResponse ])
+    } catch (err) {console.log(err.message)}
+  }, [handleCredentialResponse])
 
   useEffect(() => {
     googleSignIn()
-  }, [ googleSignIn ])
+  }, [googleSignIn])
 
   return (
     <>
@@ -87,7 +91,7 @@ const Login = () => {
                     type="email"
                     name="email"
                     className="validate"
-                    onChange={ handlerChange }
+                    onChange={handlerChange}
                   />
                   <label htmlFor="email-signin">Email</label>
                 </div>
@@ -100,7 +104,7 @@ const Login = () => {
                     name="password"
                     className="validate"
                     autoComplete="off"
-                    onChange={ handlerChange }
+                    onChange={handlerChange}
                   />
                   <label htmlFor="password-signin">Пароль</label>
                 </div>
@@ -110,8 +114,8 @@ const Login = () => {
                   <button
                     type="submit"
                     className="waves-effect waves-light btn blue btn-auth"
-                    disabled={ loading }
-                    onClick={ loginHandler }
+                    disabled={loading}
+                    onClick={loginHandler}
                   >Войти</button>
                   <Link to="/register" className="btn-outline btn-ml-2">Создать аккаунт</Link>
                 </div>
@@ -126,8 +130,8 @@ const Login = () => {
               <GoogleLogin
                 clientId="149361902691-mn9fpaisekc7mf7jvpce5hrr27h74vhm.apps.googleusercontent.com"
                 buttonText="Вход через аккаунт Google"
-                onSuccess={ handleResponse }
-                cookiePolicy={ 'single_host_origin' }
+                onSuccess={handleResponse}
+                cookiePolicy={'single_host_origin'}
                 theme="dark"
               />
             </div>

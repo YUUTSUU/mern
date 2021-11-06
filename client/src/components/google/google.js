@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 const Google = () => {
   return (
     <>
-      
+
     </>
   );
 }
 
-export default Google;
+export default Google

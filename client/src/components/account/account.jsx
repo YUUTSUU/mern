@@ -1,18 +1,18 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react'
-import { AuthContext } from '../../context/authContext'
-import { useForm } from "../../hooks/form.hook"
+import React, {useState, useContext, useEffect, useCallback} from 'react'
+import {AuthContext} from '../../context/authContext'
+import {useForm} from "../../hooks/form.hook"
 import Loading from "../loading/loading"
-import { toast } from 'react-toastify'
+import {toast} from 'react-toastify'
 import axios from 'axios'
 import "./account.scss"
 
 const Account = () => {
-  const { userId } = useContext(AuthContext)
-  const { loading, setLoading } = useForm()
-  const [ text, setText ] = useState("")
-  const [ todos, setTodos ] = useState([])
-  const [ updateText, setUpdateText ] = useState("")
-  const [ ready, setReady ] = useState(false)
+  const {userId} = useContext(AuthContext)
+  const {loading, setLoading} = useForm()
+  const [text, setText] = useState("")
+  const [todos, setTodos] = useState([])
+  const [updateText, setUpdateText] = useState("")
+  const [ready, setReady] = useState(false)
 
   const handlerChange = (event) => {
     setText(event.target.value)
@@ -33,14 +33,14 @@ const Account = () => {
       console.log(error.message)
       if (error && error.response.data) console.log(error.response.data)
     }
-  }, [ userId ])
+  }, [userId])
 
   const createTodo = async (event) => {
     event.preventDefault()
     try {
       if (!text) return toast.warning("Заполните форму!")
       setLoading(true)
-      await axios.post(`/api/posts/post`, { text, userId })
+      await axios.post(`/api/posts/post`, {text, userId})
       setText("")
       setLoading(false)
       getTodo()
@@ -51,33 +51,11 @@ const Account = () => {
     }
   }
 
-
-  // const Undo = ({ onUndo, closeToast }) => {
-  //   const handleClick = () => {
-  //     onUndo();
-  //     closeToast();
-  //   };
-
-  //   return (
-  //     <div>
-  //       <span>"Запись удалена!"</span> <button onClick={ handleClick }>Отменить</button>
-  //     </div>
-  //   );
-  // };
-
   const removeTodo = async (id) => {
     try {
       await axios.delete(`/api/posts/delete/${ id }`)
-      getTodo()
       toast.error("Запись удалена!")
-
-      // toast(<Undo onUndo={ () => getTodo() } />,
-      //   {
-      //     onClose: async () => {
-      //       await axios.delete(`/api/posts/delete/${ id }`)
-      //       getTodo()
-      //     }
-      //   })
+      getTodo()
     } catch (error) {
       console.log(error.message)
     }
@@ -94,15 +72,15 @@ const Account = () => {
 
   const editTodo = (id) => {
     const index = todos.findIndex(item => item._id === id)
-    const item = { ...todos[ index ], edit: !todos[ index ].edit }
-    const newTodos = [ ...todos.slice(0, index), item, ...todos.slice(index + 1) ]
+    const item = {...todos[index], edit: !todos[index].edit}
+    const newTodos = [...todos.slice(0, index), item, ...todos.slice(index + 1)]
     setTodos(newTodos)
   }
 
   const saveTodo = async (id) => {
     try {
       if (!updateText) return editTodo(id)
-      await axios.put(`/api/posts/text/${ id }`, { updateText })
+      await axios.put(`/api/posts/text/${ id }`, {updateText})
       setUpdateText("")
       getTodo()
       toast.success("Запись сохранена!")
@@ -113,7 +91,7 @@ const Account = () => {
 
   useEffect(() => {
     getTodo()
-  }, [ getTodo ])
+  }, [getTodo])
 
   return (
     <>
@@ -127,8 +105,8 @@ const Account = () => {
                 type="text"
                 name="input"
                 className="validate"
-                onChange={ handlerChange }
-                value={ text }
+                onChange={handlerChange}
+                value={text}
               />
               <label htmlFor="text">Задача</label>
             </div>
@@ -136,8 +114,8 @@ const Account = () => {
               <button
                 type="submit"
                 className="waves-effect waves-light btn blue form-btn"
-                disabled={ loading }
-                onClick={ createTodo }
+                disabled={loading}
+                onClick={createTodo}
               >Добавить</button>
             </div>
           </form>
@@ -157,16 +135,16 @@ const Account = () => {
                   }
 
                   return (
-                    <li className={ className } key={ item._id }>
+                    <li className={className} key={item._id}>
                       <div className="todos-label">
                         {
                           !item.edit
-                            ? <span className="todos-description">{ item.text }</span>
+                            ? <span className="todos-description">{item.text}</span>
                             : <input
                               className="todos-description"
                               type="text"
-                              onChange={ updateTextHandler }
-                              defaultValue={ item.text }
+                              onChange={updateTextHandler}
+                              defaultValue={item.text}
                             />
                         }
                       </div>
@@ -175,12 +153,12 @@ const Account = () => {
                           !item.edit
                             ? <button
                               className="waves-effect waves-light btn-floating yellow btn-small"
-                              onClick={ () => editTodo(item._id) }>
+                              onClick={() => editTodo(item._id)}>
                               <i className="material-icons todos-icons">edit</i>
                             </button>
                             : <button
                               className="waves-effect waves-light btn-floating green btn-small"
-                              onClick={ () => saveTodo(item._id) }>
+                              onClick={() => saveTodo(item._id)}>
                               <i className="material-icons todos-icons">check</i>
                             </button>
                         }
@@ -188,18 +166,18 @@ const Account = () => {
                           !item.important
                             ? <button
                               className="waves-effect waves-light btn-floating blue btn-small"
-                              onClick={ () => importantTodo(item._id) }>
+                              onClick={() => importantTodo(item._id)}>
                               <i className="material-icons todos-icons">grade</i>
                             </button>
                             : <button
                               className="waves-effect waves-light btn-floating orange btn-small"
-                              onClick={ () => importantTodo(item._id) }>
+                              onClick={() => importantTodo(item._id)}>
                               <i className="material-icons todos-icons">grade</i>
                             </button>
                         }
                         <button
                           className="waves-effect waves-light btn-floating red btn-small"
-                          onClick={ () => removeTodo(item._id) }>
+                          onClick={() => removeTodo(item._id)}>
                           <i className="material-icons todos-icons">clear</i>
                         </button>
                       </div>

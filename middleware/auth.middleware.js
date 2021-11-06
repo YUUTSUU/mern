@@ -10,7 +10,7 @@ const authorization = (req, res, next) => {
 
     req.user = payload
     next()
-  } catch (err) { return next(APIException.Request("Пользователь не авторизован!")) }
+  } catch (err) {return next(APIException.Request("Пользователь не авторизован!"))}
 }
 
 module.exports = authorization

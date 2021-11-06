@@ -40,7 +40,7 @@ const mailService = {
           </div>
         `
       })
-    } catch (err) { console.log(err.message) }
+    } catch (err) {console.log(err.message)}
   },
   register: async (email, url, info, name) => {
     try {
@@ -85,7 +85,7 @@ const mailService = {
           </div>
         `
       })
-    } catch (e) { console.log(e.message) }
+    } catch (e) {console.log(e.message)}
   },
   google: async (email, info) => {
     try {
@@ -123,7 +123,7 @@ const mailService = {
           </div>
         `
       })
-    } catch (e) { console.log(e.message) }
+    } catch (e) {console.log(e.message)}
   }
 }
 

@@ -6,7 +6,7 @@ const infoService = (req) => {
     req.socket.remoteAddress ||
     req.connection.socket.remoteAddress
 
-  return { timeStamp, ipAddress, userAgent }
+  return {timeStamp, ipAddress, userAgent}
 }
 
 module.exports = infoService
