@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 
 const mailService = {
-  login: async (email, url, info) => {
+  async login(email, url, info) {
     try {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -42,7 +42,7 @@ const mailService = {
       })
     } catch (err) {console.log(err.message)}
   },
-  register: async (email, url, info, name) => {
+  async register(email, url, info, name) {
     try {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -87,7 +87,7 @@ const mailService = {
       })
     } catch (e) {console.log(e.message)}
   },
-  google: async (email, info) => {
+  async google(email, info) {
     try {
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,

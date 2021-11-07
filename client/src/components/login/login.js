@@ -8,14 +8,12 @@ import axios from 'axios'
 import "./login.scss"
 
 const Login = () => {
-  const {loading, setLoading, form, clearForm, handlerChange} = useForm();
-  const {login} = useContext(AuthContext);
+  const {loading, setLoading, form, clearForm, formHandler} = useForm();
+  const {login} = useContext(AuthContext)
 
   const loginHandler = async (event) => {
     event.preventDefault()
     try {
-      console.log(form)
-
       toast.info("Подождите...", {autoClose: 7000})
       setLoading(true)
       const response = await axios.post(`/api/auth/login`, {...form})
@@ -91,7 +89,7 @@ const Login = () => {
                     type="email"
                     name="email"
                     className="validate"
-                    onChange={handlerChange}
+                    onChange={formHandler}
                   />
                   <label htmlFor="email-signin">Email</label>
                 </div>
@@ -104,7 +102,7 @@ const Login = () => {
                     name="password"
                     className="validate"
                     autoComplete="off"
-                    onChange={handlerChange}
+                    onChange={formHandler}
                   />
                   <label htmlFor="password-signin">Пароль</label>
                 </div>

@@ -1,8 +1,8 @@
 import React, {useState, useContext, useEffect, useCallback} from 'react'
 import {AuthContext} from '../../context/authContext'
 import {useForm} from "../../hooks/form.hook"
-import Loading from "../loading/loading"
 import {toast} from 'react-toastify'
+import Loading from "../loading/loading"
 import axios from 'axios'
 import "./account.scss"
 

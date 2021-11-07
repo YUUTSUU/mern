@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const APIException = require('../helpers/api.exception')
 
-const authorization = (req, res, next) => {
+function authorization(req, res, next) {
   try {
     const accessToken = req.headers.authorization.split(" ")[ 1 ]
 

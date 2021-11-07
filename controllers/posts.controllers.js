@@ -1,7 +1,7 @@
 const Posts = require("../models/posts.model")
 
 const controllers = {
-  createPost: async (req, res, next) => {
+  async createPost(req, res, next) {
     try {
       const {text, userId} = req.body
 
@@ -9,7 +9,7 @@ const controllers = {
       res.status(200).json(posts)
     } catch (err) {return next(err)}
   },
-  getPosts: async (req, res, next) => {
+  async getPosts(req, res, next) {
     try {
       const {userId} = req.params
 
@@ -17,7 +17,7 @@ const controllers = {
       res.status(200).json(posts)
     } catch (err) {return next(err)}
   },
-  deletePosts: async (req, res, next) => {
+  async deletePosts(req, res, next) {
     try {
       const {id} = req.params
 
@@ -25,7 +25,7 @@ const controllers = {
       res.status(200).json(posts)
     } catch (err) {return next(err)}
   },
-  updateImportant: async (req, res, next) => {
+  async updateImportant(req, res, next) {
     try {
       const {id} = req.params
 
@@ -36,7 +36,7 @@ const controllers = {
       res.status(200).json(posts)
     } catch (err) {return next(err)}
   },
-  updateText: async (req, res, next) => {
+  async updateText(req, res, next) {
     try {
       const {id} = req.params
       const {updateText} = req.body

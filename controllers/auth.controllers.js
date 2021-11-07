@@ -10,7 +10,7 @@ const userDTO = require("../helpers/user.dto")
 const APIException = require("../helpers/api.exception")
 
 const controllers = {
-  register: async (req, res, next) => {
+  async register(req, res, next) {
     try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) return next(APIException.Validate(errors.array()))
@@ -36,7 +36,7 @@ const controllers = {
       res.status(200).json({message: "Подтвердите электронный адрес!", accessToken, refreshToken, info, url})
     } catch (err) {return next(err)}
   },
-  activation: async (req, res, next) => {
+  async activation(req, res, next) {
     try {
       const {id} = req.params;
 
@@ -52,7 +52,7 @@ const controllers = {
       res.redirect(`${ process.env.API_CLIENT }/login`)
     } catch (err) {return next(err)}
   },
-  login: async (req, res, next) => {
+  async login(req, res, next) {
     try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) return next(APIException.Validate(errors.array()))
@@ -75,7 +75,7 @@ const controllers = {
       res.status(200).json({message: "Вход успешно выполнен!", accessToken, refreshToken, info})
     } catch (err) {return next(err)}
   },
-  google: async (req, res, next) => {
+  async google(req, res, next) {
     try {
       const {credential} = req.body
 
@@ -116,7 +116,7 @@ const controllers = {
       }
     } catch (err) {return next(err)}
   },
-  logout: async (req, res, next) => {
+  async logout(req, res, next) {
     try {
       const {refresh_token} = req.cookies
       if (!refresh_token) return next(APIException.Request("Токен не найдет!"))
@@ -125,7 +125,7 @@ const controllers = {
       res.status(200).json({message: "Токен удален!", refreshToken: refresh_token})
     } catch (err) {return next(err)}
   },
-  forgot: async (req, res, next) => {
+  async forgot(req, res, next) {
     try {
       const {email} = req.body
 
@@ -139,7 +139,7 @@ const controllers = {
       res.status(200).json({message: "Письмо для востановления пароля отправлено на почту!"})
     } catch (err) {return next(err)}
   },
-  reset: async (req, res, next) => {
+  async reset(req, res, next) {
     try {
       const {password} = req.body
       const {id} = req.user
@@ -150,7 +150,7 @@ const controllers = {
       res.status(200).json({message: "Пароль успешно изменен!"})
     } catch (err) {return next(err)}
   },
-  refresh: async (req, res, next) => {
+  async refresh(req, res, next) {
     try {
       const {refresh_token} = req.cookies
 
@@ -166,7 +166,7 @@ const controllers = {
       res.status(200).json({message: "Токен обновлен", accessToken, refreshToken})
     } catch (err) {return next(err)}
   },
-  user: async (req, res, next) => {
+  async user(req, res, next) {
     try {
       const {userId} = req.user
 
