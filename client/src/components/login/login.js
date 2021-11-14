@@ -1,4 +1,5 @@
-import React, {useCallback, useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
+// import {useCallback, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {AuthContext} from '../../context/authContext'
 import {useForm} from "../../hooks/form.hook"
@@ -44,36 +45,36 @@ const Login = () => {
     }
   }
 
-  const handleCredentialResponse = useCallback(async (data) => {
-    try {
-      toast.info("Подождите...", {autoClose: 7000})
-      const response = await axios.post(`/api/auth/google`, {credential: data.credential})
-      toast.dismiss()
-      toast.success("Вход успешно выполнен", login(response.data.accessToken))
-    } catch (error) {
-      console.log(error.message)
-      toast.dismiss()
-      if (error && error.response.data.message) toast.error(error.response.data.message)
-    }
-  }, [login])
+  // const handleCredentialResponse = useCallback(async (data) => {
+  //   try {
+  //     toast.info("Подождите...", {autoClose: 7000})
+  //     const response = await axios.post(`/api/auth/google`, {credential: data.credential})
+  //     toast.dismiss()
+  //     toast.success("Вход успешно выполнен", login(response.data.accessToken))
+  //   } catch (error) {
+  //     console.log(error.message)
+  //     toast.dismiss()
+  //     if (error && error.response.data.message) toast.error(error.response.data.message)
+  //   }
+  // }, [login])
 
-  const googleSignIn = useCallback(async () => {
-    try {
-      /*global google */
-      await google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-        callback: handleCredentialResponse,
-        allowed_parent_origin: process.env.REACT_APP_API_CLIENT
-      })
-      await google.accounts.id.renderButton(document.getElementById("buttonDiv"),
-        {theme: "filled_blue", size: "large", logo_alignment: "left", shape: "rectangular", width: 225, local: "ru-RU"}
-      )
-    } catch (err) {console.log(err.message)}
-  }, [handleCredentialResponse])
+  // const googleSignIn = useCallback(async () => {
+  //   try {
+  //     /*global google */
+  //     await google.accounts.id.initialize({
+  //       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+  //       callback: handleCredentialResponse,
+  //       allowed_parent_origin: process.env.REACT_APP_API_CLIENT
+  //     })
+  //     await google.accounts.id.renderButton(document.getElementById("buttonDiv"),
+  //       {theme: "filled_blue", size: "large", logo_alignment: "left", shape: "rectangular", width: 225, local: "ru-RU"}
+  //     )
+  //   } catch (err) {console.log(err.message)}
+  // }, [handleCredentialResponse])
 
-  useEffect(() => {
-    googleSignIn()
-  }, [googleSignIn])
+  // useEffect(() => {
+  //   googleSignIn()
+  // }, [googleSignIn])
 
   return (
     <>
@@ -119,11 +120,7 @@ const Login = () => {
                 </div>
               </div>
             </form>
-
-            <div className="googleSignIn">
-              <div id="buttonDiv"></div>
-            </div>
-
+            
             <div className="google">
               <GoogleLogin
                 clientId="149361902691-mn9fpaisekc7mf7jvpce5hrr27h74vhm.apps.googleusercontent.com"
@@ -133,6 +130,10 @@ const Login = () => {
                 theme="dark"
               />
             </div>
+
+            {/* <div className="googleSignIn">
+              <div id="buttonDiv"></div>
+            </div> */}
 
           </div>
         </div>

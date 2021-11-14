@@ -71,10 +71,34 @@ const Account = () => {
   }
 
   const editTodo = (id) => {
-    const index = todos.findIndex(item => item._id === id)
-    const item = {...todos[index], edit: !todos[index].edit}
-    const newTodos = [...todos.slice(0, index), item, ...todos.slice(index + 1)]
-    setTodos(newTodos)
+    // //1
+    // const index = todos.findIndex(item => item._id === id)
+    // const item = {...todos[index], edit: !todos[index].edit}
+    // const newTodos = [...todos.slice(0, index), item, ...todos.slice(index + 1)]
+    // setTodos(newTodos)
+    // //2
+    // const newTodos = [...todos]
+    // const index = newTodos.findIndex(item => item._id === id)
+    // const newItem = {...newTodos[index], edit: !newTodos[index].edit}
+    // newTodos.splice(index, 1, newItem)
+    // setTodos(newTodos)
+    // //3
+    // const newTodos = todos.slice()
+    // const index = newTodos.findIndex(item => item._id === id)
+    // const item = newTodos.find(item => item._id === id)
+    // const newItem = Object.assign({}, item, {edit: !item.edit})
+    // newTodos.splice(index, 1, newItem)
+    // setTodos(newTodos)
+    // //4
+    // const newTodos = todos.map(item=> {
+    //   if (item.id === id) {
+    //     return {...item, edit: !item.edit}
+    //   }
+    //   return item
+    // })
+    // setTodos(newTodos)
+    //5
+    setTodos(todos.map(item => {if (item._id === id) return {...item, edit: !item.edit}; return item}))
   }
 
   const saveTodo = async (id) => {
@@ -193,6 +217,3 @@ const Account = () => {
 }
 
 export default Account
-
-
-

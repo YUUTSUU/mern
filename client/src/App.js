@@ -7,20 +7,27 @@ import Navbar from "./components/navbar/navbar"
 import "./App.css"
 
 import {Provider} from "react-redux"
-import store from "./redux/store"
+import {store} from "./redux/store"
 
 function App() {
   const {login, logout, name, token, userId} = useAuth()
   const isAuthentication = !!token
   const routes = useRoutes(isAuthentication)
 
-  console.log(store.getState())
-
   return (
     <>
       <Provider store={store}>
         <AuthContext.Provider value={{login, logout, name, userId, isAuthentication}}>
-          <ToastContainer limit={2} transition={Slide} draggablePercent={60} closeButton={false} pauseOnFocusLoss={false} hideProgressBar={false} position="top-right" closeOnClick={false} />
+          <ToastContainer
+            limit={2}
+            transition={Slide}
+            draggablePercent={60}
+            closeButton={false}
+            pauseOnFocusLoss={false}
+            hideProgressBar={false}
+            position="top-right"
+            closeOnClick={false}
+          />
           <BrowserRouter>
             <Navbar />
             {routes}

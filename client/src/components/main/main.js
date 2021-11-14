@@ -1,22 +1,29 @@
 import React from 'react'
 import "./main.scss"
+
+import {actionCreaters} from '../../redux/action/action'
 import {useDispatch, useSelector} from 'react-redux'
-import {handler} from "../../redux/action/action"
-import {connect} from "react-redux"
+
 
 const Main = () => {
   const dispatch = useDispatch()
-  const text = useSelector(state => state)
+  const value = useSelector(state => state.input)
+
+  console.log(value)
+
   return (
     <>
       <div className="container">
         <div className="main">
-          <button className="mt-2 btn" onClick={() => dispatch(handler)}>onClick</button>
-          <div>{text}</div>
+          <br />
+          {/* <button className="mt-2 btn green" onClick={(event) => setState(event)} >INC</button> */}
+          <input name="input" onChange={(event) => dispatch(actionCreaters(event))} />
+          <br />
+          <span>{value}</span>
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default connect(Main)
+export default Main

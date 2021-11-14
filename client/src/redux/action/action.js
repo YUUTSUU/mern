@@ -1,6 +1,6 @@
-export const handler = () => {
+export const actionCreaters = (event) => {
   return {
-    type: "FORM",
-    payload: "Hello"
+    type: "TEXT",
+    payload: event
   }
 }
