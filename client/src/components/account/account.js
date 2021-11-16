@@ -24,7 +24,7 @@ const Account = () => {
 
   const getTodo = useCallback(async () => {
     try {
-      if (userId) {
+      if (userId !== null) {
         const response = await axios.get(`/api/posts/${ userId }`)
         setTodos(response.data)
         setTimeout(() => setReady(true), 500)

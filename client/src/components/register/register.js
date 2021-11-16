@@ -7,24 +7,29 @@ import axios from 'axios'
 import "./register.scss"
 
 const Register = () => {
-  const {loading, setLoading, form, clearForm, handlerChange} = useForm()
+  const {loading, setLoading, form, formHandler, clearForm } = useForm()
   const {login} = useContext(AuthContext)
 
   const registerHandler = async (event) => {
     event.preventDefault()
     try {
-      toast.info("Подождите...")
       setLoading(true)
+      toast.info("Подождите...")
       const response = await axios.post(`/api/auth/register`, {...form})
-      clearForm();
+      clearForm()
       setLoading(false)
-      toast.success(response.data.message)
-      setTimeout(() => toast.success("Вход успешно выполнен", login(response.data.accessToken)), 200)
+      if (typeof response.data.accessToken === "string") {
+        toast.success(response.data.message)
+        toast.success("Добро пожаловать!", login(response.data.accessToken))
+      }
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
       toast.dismiss()
-      if (error && error.response.data.message) toast.error(error.response.data.message)
+      if (error && error.response.data.message) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error("Запрос не выполнен...")
+      }
     }
   }
 
@@ -42,7 +47,7 @@ const Register = () => {
                     type="text"
                     name="name"
                     className="validate"
-                    onChange={handlerChange}
+                    onChange={formHandler}
                     value={form.name}
                   />
                   <label htmlFor="name-signup">Name</label>
@@ -55,7 +60,7 @@ const Register = () => {
                     type="email"
                     name="email"
                     className="validate"
-                    onChange={handlerChange}
+                    onChange={formHandler}
                     value={form.email}
                   />
                   <label htmlFor="email-signup">Email</label>
@@ -69,7 +74,7 @@ const Register = () => {
                     name="password"
                     className="validate"
                     autoComplete="off"
-                    onChange={handlerChange}
+                    onChange={formHandler}
                     value={form.password}
                   />
                   <label htmlFor="password-signup">Пароль</label>

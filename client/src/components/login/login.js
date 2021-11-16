@@ -9,26 +9,30 @@ import axios from 'axios'
 import "./login.scss"
 
 const Login = () => {
-  const {loading, setLoading, form, clearForm, formHandler} = useForm();
+  const {loading, setLoading, form, formHandler, clearForm} = useForm()
   const {login} = useContext(AuthContext)
+  const {email, password} = form //-name
 
   const loginHandler = async (event) => {
     event.preventDefault()
     try {
-      toast.info("Подождите...", {autoClose: 7000})
       setLoading(true)
-      const response = await axios.post(`/api/auth/login`, {...form})
+      toast.info("Подождите...", {autoClose: 7000})
+      const response = await axios.post(`/api/auth/login`, {email, password})
       clearForm()
       setLoading(false)
-      toast.dismiss()
+      // toast.dismiss()
       if (typeof response.data.accessToken === "string") {
-        setTimeout(() => toast.success("Вход успешно выполнен", login(response.data.accessToken)), 0)
+        toast.success("Добро пожаловать!", login(response.data.accessToken))
       }
     } catch (error) {
       setLoading(false)
-      console.log(error.message)
       toast.dismiss()
-      if (error && error.response.data.message) toast.error(error.response.data.message)
+      if (error && error.response.data.message) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error("Запрос не выполнен...")
+      }
     }
   }
 
@@ -120,7 +124,7 @@ const Login = () => {
                 </div>
               </div>
             </form>
-            
+
             <div className="google">
               <GoogleLogin
                 clientId="149361902691-mn9fpaisekc7mf7jvpce5hrr27h74vhm.apps.googleusercontent.com"

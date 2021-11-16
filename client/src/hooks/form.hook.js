@@ -1,16 +1,16 @@
-import {useState, useCallback} from "react";
+import {useState} from "react"
 
 export const useForm = () => {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({name: "", email: "", password: ""});
+  const [form, setForm] = useState({name: "", email: "", password: ""})
 
-  const handlerChange = useCallback((event) => {
-    setForm({...form, [event.target.name]: event.target.value});
-  }, [form, setForm])
+  const formHandler = (event) => {
+    setForm({...form, [event.target.name]: event.target.value})
+  }
 
-  const clearForm = useCallback(() => {
-    setForm({name: "", email: "", password: ""});
-  }, [])
+  const clearForm = () => {
+    setForm({...form, name: "", email: "", password: ""})
+  }
 
-  return {loading, setLoading, form, clearForm, handlerChange};
+  return {loading, setLoading, form, formHandler, clearForm}
 }

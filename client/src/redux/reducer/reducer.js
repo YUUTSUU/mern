@@ -1,8 +1,8 @@
-const initialState = {
+const DefaultRootState = {
   input: ""
 }
 
-export const rootReducer = (state = initialState, action) => {
+export const rootReducer = (state = DefaultRootState, action) => {
   switch (action.type) {
     case "TEXT":
       return {...state, [action.payload.target.name]: action.payload.target.value}
@@ -10,3 +10,4 @@ export const rootReducer = (state = initialState, action) => {
       return state
   }
 }
+

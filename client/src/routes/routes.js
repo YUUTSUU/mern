@@ -6,6 +6,16 @@ import Login from "../components/login/login"
 import Register from "../components/register/register"
 import Activation from '../components/activation/activation'
 
+const NotFound = () => {
+  return (
+    <>
+      <div className="container">
+        <h3>404</h3>
+      </div>
+    </>
+  )
+}
+
 export const useRoutes = (isAuthentication) => {
   if (isAuthentication) {
     return (
@@ -22,6 +32,7 @@ export const useRoutes = (isAuthentication) => {
       <Route path="/activation" exact component={Activation} />
       <Route path="/login" exact component={Login} />
       <Route path="/register" exact component={Register} />
+      <Route path="*" component={NotFound} status={404} />
     </Switch>
   )
 }
