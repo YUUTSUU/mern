@@ -9,8 +9,6 @@ const Main = () => {
   const dispatch = useDispatch()
   const {value} = useSelector(state => state)
 
-  // const [state, setState] = useState(null)
-
   const ref = createRef()
 
   useEffect(() => {

@@ -5,16 +5,7 @@ import Account from '../components/account/account'
 import Login from "../components/login/login"
 import Register from "../components/register/register"
 import Activation from '../components/activation/activation'
-
-const NotFound = () => {
-  return (
-    <>
-      <div className="container">
-        <h3>404</h3>
-      </div>
-    </>
-  )
-}
+import NotFound from "../components/404/404"
 
 export const useRoutes = (isAuthentication) => {
   if (isAuthentication) {
